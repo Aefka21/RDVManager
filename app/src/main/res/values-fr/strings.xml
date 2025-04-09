@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RDV Manager</string>
+    <string name="btn_date">Choix de la date</string>
+    <string name="add">Ajouter</string>
+    <string name="search">Rechercher</string>
+    <string name="btnCancel">Annuler</string>
+    <string name="btnSave">Sauvegarder</string>
+    <string name="lblPerson">Personne</string>
+    <string name="lblTitle">Titre</string>
+    <string name="TvNoItems">Pas de RDV</string>
+</resources>
