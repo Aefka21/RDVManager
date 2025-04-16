@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-public class DatePickerFragment  extends DialogFragment {
+public class DatePickerFragment extends DialogFragment {
     private int year, month, day;
     DatePickerDialog.OnDateSetListener onDateSet;
 

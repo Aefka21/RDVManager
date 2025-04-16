@@ -11,4 +11,6 @@
     <string name="lblPhone">Phone</string>
     <string name="lblDate">Date</string>
     <string name="pckDate">Pick Date</string>
+    <string name="lblTime">Time</string>
+    <string name="pckTime">Pick Time</string>
 </resources>

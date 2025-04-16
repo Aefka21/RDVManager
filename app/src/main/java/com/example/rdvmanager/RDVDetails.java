@@ -1,12 +1,14 @@
 package com.example.rdvmanager;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,12 @@ public class RDVDetails extends AppCompatActivity {
     Button btnPickDate;
     String stringDate;
 
+    int hours, minutes;
+    TimePickerDialog.OnTimeSetListener onTime;
+    Button btnPickTime;
+    String stringTime;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,7 @@ public class RDVDetails extends AppCompatActivity {
         etPerson = findViewById(R.id.etPerson);
         etPhone = findViewById(R.id.etPhone);
         btnPickDate=findViewById(R.id.btnPickDate);
+        btnPickTime=findViewById(R.id.btnPickTime);
         myHelper = new DatabaseHelper(this);
         myHelper.open();
 
@@ -46,6 +55,16 @@ public class RDVDetails extends AppCompatActivity {
                 stringDate = new StringBuilder().append(day).append("-")
                         .append(month + 1).append("-")
                         .append(year).toString();
+            }
+        };
+
+        onTime = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hour, int minute) {
+                hours = hour;
+                minutes = minute;
+
+                stringTime = new StringBuilder().append(hours).append(":").append(minutes).toString();
             }
         };
 
@@ -80,6 +99,23 @@ public class RDVDetails extends AppCompatActivity {
         showDatePicker();
     }
 
+    private void showTimePicker() {
+        TimePickerFragment time= new TimePickerFragment();
+        final Calendar c = Calendar.getInstance();
+        int hours = c.get(Calendar.HOUR_OF_DAY);
+        int minutes = c.get(Calendar.MINUTE);
+        Bundle args = new Bundle();
+        args.putInt("hours",hours);
+        args.putInt("minutes",minutes);
+        time.setArguments(args);
+        time.setCallBack(onTime);
+        time.show(getSupportFragmentManager(),"Time Picker");
+    }
+
+    public void pickTime(View view){
+        showTimePicker();
+    }
+
     public void onCancelClick(View v) {
         finish();
     }
@@ -88,7 +124,7 @@ public class RDVDetails extends AppCompatActivity {
         String title= etTitle.getText().toString();
         String person = etPerson.getText().toString();
         String phone = etPhone.getText().toString();
-        RDV moment = new RDV(title, stringDate, person, phone);
+        RDV moment = new RDV(title, stringDate, stringTime, person, phone);
         myHelper.add(moment);
         Intent main = new Intent(this,MainActivity.class);//.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);

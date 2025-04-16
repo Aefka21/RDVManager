@@ -16,6 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String _ID = "_id";
     public static final String TITLE = "title";
     public static final String DATE = "date";
+    public static final String TIME = "time";
     public static final String PERSON = "person";
     public static final String PHONE = "phone";
 
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TITLE + " TEXT NOT NULL, "
             + DATE + " TEXT NOT NULL, "
+            + TIME + " TEXT NOT NULL, "
             + PERSON + " TEXT NOT NULL, "
             + PHONE + " TEXT );";
 
@@ -60,13 +62,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues= new ContentValues();
         contentValues.put(TITLE, rdv.getTitle());
         contentValues.put(DATE, rdv.getDate());
+        contentValues.put(TIME, rdv.getTime());
         contentValues.put(PERSON, rdv.getPerson());
         contentValues.put(PHONE, rdv.getPhone());
         database.insert(TABLE_NAME,null,contentValues);
     }
 
     public Cursor getAllRDV() {
-        String[] projection = {_ID, TITLE, DATE, PERSON, PHONE};
+        String[] projection = {_ID, TITLE, DATE, TIME, PERSON, PHONE};
         return database.query(TABLE_NAME,projection,null,null,null,null,null,null);
     }
 

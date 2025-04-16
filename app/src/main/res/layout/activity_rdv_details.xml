@@ -87,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lblDate" />
-
         <Button
             android:id="@+id/btnPickDate"
             android:layout_width="wrap_content"
@@ -96,7 +95,25 @@
             android:ems="10"
             android:onClick="pickDate"
             android:text="@string/pckDate" />
+    </TableRow>
 
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblTime" />
+        <Button
+            android:id="@+id/btnPickTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:ems="10"
+            android:onClick="pickTime"
+            android:text="@string/pckTime" />
     </TableRow>
 
     <TableRow

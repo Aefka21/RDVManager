@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -76,8 +75,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chargeData(){
-        final String[] from = new String[]{DatabaseHelper._ID, DatabaseHelper.TITLE, DatabaseHelper.DATE, DatabaseHelper.PERSON, DatabaseHelper.PHONE};
-        final int[] to = new int[]{R.id.idRDV, R.id.Title, R.id.Date, R.id.Person, R.id.Phone};
+        final String[] from = new String[] {
+                DatabaseHelper._ID,
+                DatabaseHelper.TITLE,
+                DatabaseHelper.DATE,
+                DatabaseHelper.TIME,
+                DatabaseHelper.PERSON,
+                DatabaseHelper.PHONE
+        };
+        final int[] to = new int[] {
+                R.id.idRDV,
+                R.id.Title,
+                R.id.Date,
+                R.id.Time,
+                R.id.Person,
+                R.id.Phone
+        };
 
         Cursor c = myHelper.getAllRDV();
         SimpleCursorAdapter adapter= new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);

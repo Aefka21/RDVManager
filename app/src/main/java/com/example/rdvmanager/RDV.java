@@ -1,6 +1,5 @@
 package com.example.rdvmanager;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,12 +10,14 @@ public class RDV implements Parcelable {
     private int id;
     private String title;
     private String date;
+    private String time;
     private String person;
     private String phone;
 
-    public RDV(String _title, String _date, String _person, String _phone) {
+    public RDV(String _title, String _date, String _time, String _person, String _phone) {
         title = _title;
         date = _date;
+        time = _time;
         person = _person;
         phone = _phone;
     }
@@ -25,6 +26,7 @@ public class RDV implements Parcelable {
         id = in.readInt();
         title = in.readString();
         date = in.readString();
+        time = in.readString();
         person = in.readString();
         phone = in.readString();
     }
@@ -43,6 +45,10 @@ public class RDV implements Parcelable {
 
     public String getDate() {
         return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public static final Creator<RDV> CREATOR = new Creator<RDV>() {
@@ -67,6 +73,7 @@ public class RDV implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(date);
+        //parcel.writeString(time);
         parcel.writeString(person);
         parcel.writeString(phone);
     }
