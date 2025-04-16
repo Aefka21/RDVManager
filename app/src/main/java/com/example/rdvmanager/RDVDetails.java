@@ -18,7 +18,7 @@ public class RDVDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rdv_details);
         etTitle = findViewById(R.id.etTitle);
-        etPerson = findViewById(R.id.etTitle);
+        etPerson = findViewById(R.id.etPerson);
         myHelper = new DatabaseHelper(this);
         myHelper.open();
 

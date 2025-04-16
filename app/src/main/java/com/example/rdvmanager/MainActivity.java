@@ -31,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-        Toast.makeText(this, "TestToolbar", Toast.LENGTH_LONG).show();
-
         myHelper=new DatabaseHelper(this);
         myHelper.open();
 
@@ -71,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.new_RDV) {
-            Toast.makeText(this, "Test", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this,RDVDetails.class);
             startActivity(intent);
             return true;
