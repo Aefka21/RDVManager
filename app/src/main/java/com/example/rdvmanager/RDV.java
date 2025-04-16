@@ -1,6 +1,5 @@
 package com.example.rdvmanager;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,47 +9,46 @@ public class RDV implements Parcelable {
 
     private int id;
     private String title;
+    private String date;
+    private String time;
     private String person;
+    private String phone;
 
-    public RDV(String _title, String _person) {
+    public RDV(String _title, String _date, String _time, String _person, String _phone) {
         title = _title;
+        date = _date;
+        time = _time;
         person = _person;
-    }
-
-    public RDV(int _id, String _title, String _person) {
-        id = _id;
-        title = _title;
-        person = _person;
+        phone = _phone;
     }
 
     protected RDV(Parcel in) {
         id = in.readInt();
         title = in.readString();
+        date = in.readString();
+        time = in.readString();
         person = in.readString();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        phone = in.readString();
     }
 
     public String getPerson() {
         return person;
     }
 
-    public void setPerson(String person) {
-        this.person = person;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public static final Creator<RDV> CREATOR = new Creator<RDV>() {
@@ -74,6 +72,9 @@ public class RDV implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(title);
+        parcel.writeString(date);
+        //parcel.writeString(time);
         parcel.writeString(person);
+        parcel.writeString(phone);
     }
 }

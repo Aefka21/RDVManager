@@ -2,9 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.RDVManager" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your dark theme here. -->
-        <item name="colorPrimary">#2196F3</item>
-        <item name="colorPrimaryVariant">#2C3E50</item>
-        <item name="colorOnPrimary">#3F51B5</item>
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorOnPrimary">#000000</item>
     </style>
 </resources>

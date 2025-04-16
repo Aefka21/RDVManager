@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -30,10 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
-        /*Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-        Toast.makeText(this, "TestToolbar", Toast.LENGTH_LONG).show();
 
         myHelper=new DatabaseHelper(this);
         myHelper.open();
@@ -71,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.new_RDV) {
-            Toast.makeText(this, "Test", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(this,RDVDetails.class);
             startActivity(intent);
             return true;
@@ -81,8 +75,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chargeData(){
-        final String[] from = new String[]{DatabaseHelper._ID, DatabaseHelper.TITLE, DatabaseHelper.PERSON};
-        final int[]to= new int[]{R.id.idRDV, R.id.Title, R.id.Person};
+        final String[] from = new String[] {
+                DatabaseHelper._ID,
+                DatabaseHelper.TITLE,
+                DatabaseHelper.DATE,
+                DatabaseHelper.TIME,
+                DatabaseHelper.PERSON,
+                DatabaseHelper.PHONE
+        };
+        final int[] to = new int[] {
+                R.id.idRDV,
+                R.id.Title,
+                R.id.Date,
+                R.id.Time,
+                R.id.Person,
+                R.id.Phone
+        };
 
         Cursor c = myHelper.getAllRDV();
         SimpleCursorAdapter adapter= new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);

@@ -15,9 +15,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table columns
     public static final String _ID = "_id";
     public static final String TITLE = "title";
+    public static final String DATE = "date";
+    public static final String TIME = "time";
     public static final String PERSON = "person";
-    /*public static final String PHONE = "phone";
-    public static final String DONE = "done";*/
+    public static final String PHONE = "phone";
 
     // Database Information
     static final String DB_NAME = "RDV.DB";
@@ -26,9 +27,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final int DB_VERSION = 1;
 
     // Creating table query
-    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + _ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE +
-            " TEXT NOT NULL, " + PERSON + " TEXT NOT NULL);";
+    private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+            + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + TITLE + " TEXT NOT NULL, "
+            + DATE + " TEXT NOT NULL, "
+            + TIME + " TEXT NOT NULL, "
+            + PERSON + " TEXT NOT NULL, "
+            + PHONE + " TEXT );";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION) ;
@@ -56,16 +61,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void add(RDV rdv){
         ContentValues contentValues= new ContentValues();
         contentValues.put(TITLE, rdv.getTitle());
+        contentValues.put(DATE, rdv.getDate());
+        contentValues.put(TIME, rdv.getTime());
         contentValues.put(PERSON, rdv.getPerson());
-        /*contentValues.put(PHONE, rdv.getPerson());
-        contentValues.put(DONE, rdv.getDone());*/
+        contentValues.put(PHONE, rdv.getPhone());
         database.insert(TABLE_NAME,null,contentValues);
     }
 
     public Cursor getAllRDV() {
-        String[] projection = {_ID, TITLE, PERSON};
-        Cursor cursor = database.query(TABLE_NAME,projection,null,null,null,null,null,null);
-        return cursor;
+        String[] projection = {_ID, TITLE, DATE, TIME, PERSON, PHONE};
+        return database.query(TABLE_NAME,projection,null,null,null,null,null,null);
     }
 
     public void delete(long _id)
