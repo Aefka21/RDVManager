@@ -16,8 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String _ID = "_id";
     public static final String TITLE = "title";
     public static final String PERSON = "person";
-    /*public static final String PHONE = "phone";
-    public static final String DONE = "done";*/
+    public static final String PHONE = "phone";
+    //public static final String DONE = "done";*/
 
     // Database Information
     static final String DB_NAME = "RDV.DB";
@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Creating table query
     private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + _ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE +
-            " TEXT NOT NULL, " + PERSON + " TEXT NOT NULL);";
+            " TEXT NOT NULL, " + PERSON + " TEXT NOT NULL, " + PHONE + " TEXT );";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION) ;
@@ -57,8 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues= new ContentValues();
         contentValues.put(TITLE, rdv.getTitle());
         contentValues.put(PERSON, rdv.getPerson());
-        /*contentValues.put(PHONE, rdv.getPerson());
-        contentValues.put(DONE, rdv.getDone());*/
+        contentValues.put(PHONE, rdv.getPerson());
+        //contentValues.put(DONE, rdv.getDone());*/
         database.insert(TABLE_NAME,null,contentValues);
     }
 

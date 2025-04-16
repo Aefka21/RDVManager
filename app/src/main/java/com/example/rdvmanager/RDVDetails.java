@@ -11,6 +11,7 @@ public class RDVDetails extends AppCompatActivity {
 
     private EditText etTitle;
     private EditText etPerson;
+    private EditText etPhone;
     private DatabaseHelper myHelper;
 
     @Override
@@ -19,6 +20,7 @@ public class RDVDetails extends AppCompatActivity {
         setContentView(R.layout.activity_rdv_details);
         etTitle = findViewById(R.id.etTitle);
         etPerson = findViewById(R.id.etPerson);
+        etPhone = findViewById(R.id.etPhone);
         myHelper = new DatabaseHelper(this);
         myHelper.open();
 
@@ -41,7 +43,8 @@ public class RDVDetails extends AppCompatActivity {
     public void saveRDV(View view) {
         String title= etTitle.getText().toString();
         String person = etPerson.getText().toString();
-        RDV moment = new RDV(title, person);
+        String phone = etPhone.getText().toString();
+        RDV moment = new RDV(title, person, phone);
         myHelper.add(moment);
         Intent main = new Intent(this,MainActivity.class);//.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(main);

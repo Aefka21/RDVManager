@@ -8,4 +8,5 @@
     <string name="lblPerson">Personne</string>
     <string name="lblTitle">Titre</string>
     <string name="TvNoItems">Pas de RDV</string>
+    <string name="lblPhone">Téléphone</string>
 </resources>

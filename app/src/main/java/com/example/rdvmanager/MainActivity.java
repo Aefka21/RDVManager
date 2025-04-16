@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void chargeData(){
         final String[] from = new String[]{DatabaseHelper._ID, DatabaseHelper.TITLE, DatabaseHelper.PERSON};
-        final int[]to= new int[]{R.id.idRDV, R.id.Title, R.id.Person};
+        final int[] to = new int[]{R.id.idRDV, R.id.Title, R.id.Person};
 
         Cursor c = myHelper.getAllRDV();
         SimpleCursorAdapter adapter= new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);
