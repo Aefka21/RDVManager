@@ -9,4 +9,6 @@
     <string name="lblTitle">Titre</string>
     <string name="TvNoItems">Pas de RDV</string>
     <string name="lblPhone">Téléphone</string>
+    <string name="lblDate">Date</string>
+    <string name="pckDate">Choisir une date</string>
 </resources>

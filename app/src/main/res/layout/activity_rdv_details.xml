@@ -80,6 +80,27 @@
 
     <TableRow
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblDate" />
+
+        <Button
+            android:id="@+id/btnPickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:ems="10"
+            android:onClick="pickDate"
+            android:text="@string/pckDate" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="40dp">
         <TextView
             android:id="@+id/tvId"

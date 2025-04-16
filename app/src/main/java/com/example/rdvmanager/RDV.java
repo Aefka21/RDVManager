@@ -10,11 +10,13 @@ public class RDV implements Parcelable {
 
     private int id;
     private String title;
+    private String date;
     private String person;
     private String phone;
 
-    public RDV(String _title, String _person, String _phone) {
+    public RDV(String _title, String _date, String _person, String _phone) {
         title = _title;
+        date = _date;
         person = _person;
         phone = _phone;
     }
@@ -22,6 +24,7 @@ public class RDV implements Parcelable {
     protected RDV(Parcel in) {
         id = in.readInt();
         title = in.readString();
+        date = in.readString();
         person = in.readString();
         phone = in.readString();
     }
@@ -36,6 +39,10 @@ public class RDV implements Parcelable {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public static final Creator<RDV> CREATOR = new Creator<RDV>() {
@@ -59,6 +66,7 @@ public class RDV implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(title);
+        parcel.writeString(date);
         parcel.writeString(person);
         parcel.writeString(phone);
     }
