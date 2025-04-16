@@ -19,13 +19,6 @@ public class RDV implements Parcelable {
         phone = _phone;
     }
 
-    public RDV(int _id, String _title, String _person, String _phone) {
-        id = _id;
-        title = _title;
-        person = _person;
-        phone = _phone;
-    }
-
     protected RDV(Parcel in) {
         id = in.readInt();
         title = in.readString();
@@ -33,36 +26,16 @@ public class RDV implements Parcelable {
         phone = in.readString();
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getPerson() {
         return person;
-    }
-
-    public void setPerson(String person) {
-        this.person = person;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public static final Creator<RDV> CREATOR = new Creator<RDV>() {

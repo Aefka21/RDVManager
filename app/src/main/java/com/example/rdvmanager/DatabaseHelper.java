@@ -17,7 +17,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TITLE = "title";
     public static final String PERSON = "person";
     public static final String PHONE = "phone";
-    //public static final String DONE = "done";*/
 
     // Database Information
     static final String DB_NAME = "RDV.DB";
@@ -57,15 +56,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues= new ContentValues();
         contentValues.put(TITLE, rdv.getTitle());
         contentValues.put(PERSON, rdv.getPerson());
-        contentValues.put(PHONE, rdv.getPerson());
-        //contentValues.put(DONE, rdv.getDone());*/
+        contentValues.put(PHONE, rdv.getPhone());
         database.insert(TABLE_NAME,null,contentValues);
     }
 
     public Cursor getAllRDV() {
-        String[] projection = {_ID, TITLE, PERSON};
-        Cursor cursor = database.query(TABLE_NAME,projection,null,null,null,null,null,null);
-        return cursor;
+        String[] projection = {_ID, TITLE, PERSON, PHONE};
+        return database.query(TABLE_NAME,projection,null,null,null,null,null,null);
     }
 
     public void delete(long _id)
