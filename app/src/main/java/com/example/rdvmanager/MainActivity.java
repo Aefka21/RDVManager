@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 String phoneItem = ((TextView)view.findViewById(R.id.Phone)).getText().toString();
                 String dateItem = ((TextView)view.findViewById(R.id.Date)).getText().toString();
                 String timeItem = ((TextView)view.findViewById(R.id.Time)).getText().toString();
-                RDV pRDV = new RDV(Integer.parseInt(idItem),titleItem, dateItem, timeItem, personItem, phoneItem);
+                String stateItem = ((TextView)view.findViewById(R.id.State)).getText().toString();
+                RDV pRDV = new RDV(Integer.parseInt(idItem),titleItem, dateItem, timeItem, personItem, phoneItem, true);
                 Intent intent = new Intent(getApplicationContext(), RDVDetails.class);
                 intent.putExtra("SelectedRDV",pRDV);
                 intent.putExtra("fromAdd",false);
@@ -99,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 DatabaseHelper.DATE,
                 DatabaseHelper.TIME,
                 DatabaseHelper.PERSON,
-                DatabaseHelper.PHONE
+                DatabaseHelper.PHONE,
+                DatabaseHelper.STATE
         };
         
         final int[] to = new int[] {
@@ -108,11 +111,30 @@ public class MainActivity extends AppCompatActivity {
                 R.id.Date,
                 R.id.Time,
                 R.id.Person,
-                R.id.Phone
+                R.id.Phone,
+                R.id.State
         };
         
         Cursor c = myHelper.getAllRDV();
-        SimpleCursorAdapter adapter= new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);
+        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                if (view.getId() == R.id.State) {
+                    int state = cursor.getInt(columnIndex);
+
+                    String text;
+                    if (state == 1) {
+                        text = view.getContext().getString(R.string.stateDone);
+                    } else {
+                        text = view.getContext().getString(R.string.stateNotDone);
+                    }
+                    ((TextView)view).setText(text);
+                    return true;
+                }
+                return false;
+            }
+        });
         adapter.notifyDataSetChanged();
         lvRDV.setAdapter(adapter);
     }

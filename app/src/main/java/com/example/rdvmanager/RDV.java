@@ -1,5 +1,6 @@
 package com.example.rdvmanager;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -13,22 +14,25 @@ public class RDV implements Parcelable {
     private final String time;
     private final String person;
     private final String phone;
+    private boolean state;
 
-    public RDV(String _title, String _date, String _time, String _person, String _phone) {
+    public RDV(String _title, String _date, String _time, String _person, String _phone, boolean _state) {
         title = _title;
         date = _date;
         time = _time;
         person = _person;
         phone = _phone;
+        state = _state;
     }
 
-    public RDV(int _id, String _title, String _date, String _time, String _person, String _phone) {
+    public RDV(int _id, String _title, String _date, String _time, String _person, String _phone, boolean _state) {
         id = _id;
         title = _title;
         date = _date;
         time = _time;
         person = _person;
         phone = _phone;
+        state = _state;
     }
 
     protected RDV(Parcel in) {
@@ -38,6 +42,9 @@ public class RDV implements Parcelable {
         time = in.readString();
         person = in.readString();
         phone = in.readString();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            state = in.readBoolean();
+        }
     }
 
     public String getId() {
@@ -62,6 +69,10 @@ public class RDV implements Parcelable {
 
     public String getTime() {
         return time;
+    }
+
+    public boolean getState() {
+        return state;
     }
 
     public static final Creator<RDV> CREATOR = new Creator<RDV>() {
@@ -89,5 +100,8 @@ public class RDV implements Parcelable {
         parcel.writeString(time);
         parcel.writeString(person);
         parcel.writeString(phone);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            parcel.writeBoolean(state);
+        }
     }
 }

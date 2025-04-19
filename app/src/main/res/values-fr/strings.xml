@@ -14,4 +14,6 @@
     <string name="lblTime">Heure</string>
     <string name="pckTime">Choisir une heure</string>
     <string name="delete">Supprimer</string>
+    <string name="stateDone">Effectué</string>
+    <string name="stateNotDone">Non effectué</string>"
 </resources>

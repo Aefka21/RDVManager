@@ -14,4 +14,6 @@
     <string name="lblTime">Time</string>
     <string name="pckTime">Pick Time</string>
     <string name="delete">Delete</string>
+    <string name="stateDone">Done</string>
+    <string name="stateNotDone">Not Done</string>"
 </resources>

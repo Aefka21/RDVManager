@@ -137,14 +137,20 @@ public class RDVDetails extends AppCompatActivity {
         String phone = etPhone.getText().toString();
         String date = etDate.getText().toString();
         String time = etTime.getText().toString();
+
+        Calendar actualTime = Calendar.getInstance();
+        Calendar chosenTime = Calendar.getInstance();
+        chosenTime.set(year,month,day,hours,minutes);
+        boolean state = actualTime.after(chosenTime);
+
         if (fromAdd) {
-            RDV rdv = new RDV(title, date, time, person, phone);
+            RDV rdv = new RDV(title, date, time, person, phone, state);
             myHelper.add(rdv);
             Intent main = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(main);
         } else {
             int id = Integer.parseInt(tvId.getText().toString());
-            RDV rdv = new RDV(id,title, date, time, person, phone);
+            RDV rdv = new RDV(id,title, date, time, person, phone, state);
             int n = myHelper.update(rdv);
 
             Intent main = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

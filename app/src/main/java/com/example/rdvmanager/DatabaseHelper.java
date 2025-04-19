@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TIME = "time";
     public static final String PERSON = "person";
     public static final String PHONE = "phone";
+    public static final String STATE = "state";
 
     // Database Information
     static final String DB_NAME = "RDV.DB";
@@ -33,7 +34,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + DATE + " TEXT NOT NULL, "
             + TIME + " TEXT NOT NULL, "
             + PERSON + " TEXT NOT NULL, "
-            + PHONE + " TEXT );";
+            + PHONE + " TEXT, "
+            + STATE + " BOOLEAN);";
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION) ;
@@ -65,11 +67,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TIME, rdv.getTime());
         contentValues.put(PERSON, rdv.getPerson());
         contentValues.put(PHONE, rdv.getPhone());
+        contentValues.put(STATE, rdv.getState());
         database.insert(TABLE_NAME,null,contentValues);
     }
 
     public Cursor getAllRDV() {
-        String[] projection = {_ID, TITLE, DATE, TIME, PERSON, PHONE};
+        String[] projection = {_ID, TITLE, DATE, TIME, PERSON, PHONE, STATE};
         return database.query(TABLE_NAME,projection,null,null,null,null,null,null);
     }
 
@@ -86,6 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(TIME, rdv.getTime());
         contentValues.put(PERSON, rdv.getPerson());
         contentValues.put(PHONE, rdv.getPhone());
+        contentValues.put(STATE, rdv.getState());
         return database.update(TABLE_NAME, contentValues, _ID + " = " + _id, null);
     }
 }
