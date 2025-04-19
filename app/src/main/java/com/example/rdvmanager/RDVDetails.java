@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,18 +20,22 @@ public class RDVDetails extends AppCompatActivity {
     private EditText etTitle;
     private EditText etPerson;
     private EditText etPhone;
+    private TextView tvId;
     private DatabaseHelper myHelper;
 
     private int year,month,day;
     DatePickerDialog.OnDateSetListener onDate ;
     Button btnPickDate;
     String stringDate;
+    private EditText etDate;
 
     int hours, minutes;
     TimePickerDialog.OnTimeSetListener onTime;
     Button btnPickTime;
     String stringTime;
+    private EditText etTime;
 
+    boolean fromAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,11 @@ public class RDVDetails extends AppCompatActivity {
         etTitle = findViewById(R.id.etTitle);
         etPerson = findViewById(R.id.etPerson);
         etPhone = findViewById(R.id.etPhone);
+        etDate = findViewById(R.id.etDate);
+        etTime = findViewById(R.id.etTime);
         btnPickDate=findViewById(R.id.btnPickDate);
         btnPickTime=findViewById(R.id.btnPickTime);
+        tvId = findViewById(R.id.tvId);
         myHelper = new DatabaseHelper(this);
         myHelper.open();
 
@@ -52,9 +59,10 @@ public class RDVDetails extends AppCompatActivity {
                 year = selectedYear;
                 month = selectedMonth;
                 day = selectedDay;
-                stringDate = new StringBuilder().append(day).append("-")
-                        .append(month + 1).append("-")
+                stringDate = new StringBuilder().append(day).append("/")
+                        .append(month + 1).append("/")
                         .append(year).toString();
+                etDate.setText(stringDate);
             }
         };
 
@@ -65,19 +73,22 @@ public class RDVDetails extends AppCompatActivity {
                 minutes = minute;
 
                 stringTime = new StringBuilder().append(hours).append(":").append(minutes).toString();
+                etTime.setText(stringTime);
             }
         };
 
-        /*Intent intent = getIntent();
-        boolean fromAdd = intent.getBooleanExtra("fromAdd", false);
+        Intent intent = getIntent();
+        fromAdd = intent.getBooleanExtra("fromAdd", true);
         if(!fromAdd){
-            Bundle b= intent.getExtras();
-            RDV selectedMoment= b.getParcelable("SelectedRDV");
-            //tvId.setText(String.valueOf(selectedMoment.getId()));
-            etTitle.setText(selectedMoment.getTitle());
-            etPerson.setText(selectedMoment.getPerson());
-        }*/
-
+            Bundle b = intent.getExtras();
+            RDV selectedRDV = b.getParcelable("SelectedRDV");
+            tvId.setText(selectedRDV.getId());
+            etTitle.setText(selectedRDV.getTitle());
+            etPerson.setText(selectedRDV.getPerson());
+            etPhone.setText(selectedRDV.getPhone());
+            etDate.setText(selectedRDV.getDate());
+            etTime.setText(selectedRDV.getTime());
+        }
     }
 
     private void showDatePicker() {
@@ -121,13 +132,24 @@ public class RDVDetails extends AppCompatActivity {
     }
 
     public void saveRDV(View view) {
-        String title= etTitle.getText().toString();
+        String title = etTitle.getText().toString();
         String person = etPerson.getText().toString();
         String phone = etPhone.getText().toString();
-        RDV moment = new RDV(title, stringDate, stringTime, person, phone);
-        myHelper.add(moment);
-        Intent main = new Intent(this,MainActivity.class);//.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(main);
+        String date = etDate.getText().toString();
+        String time = etTime.getText().toString();
+        if (fromAdd) {
+            RDV rdv = new RDV(title, date, time, person, phone);
+            myHelper.add(rdv);
+            Intent main = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(main);
+        } else {
+            int id = Integer.parseInt(tvId.getText().toString());
+            RDV rdv = new RDV(id,title, date, time, person, phone);
+            int n = myHelper.update(rdv);
+
+            Intent main = new Intent(this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(main);
+        }
     }
 
 }

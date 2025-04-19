@@ -77,4 +77,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         database.delete(TABLE_NAME, _ID + "=" + _id, null);
     }
+
+    public int update(RDV rdv) {
+        int _id = Integer.parseInt(rdv.getId());
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TITLE, rdv.getTitle());
+        contentValues.put(DATE, rdv.getDate());
+        contentValues.put(TIME, rdv.getTime());
+        contentValues.put(PERSON, rdv.getPerson());
+        contentValues.put(PHONE, rdv.getPhone());
+        return database.update(TABLE_NAME, contentValues, _ID + " = " + _id, null);
+    }
 }

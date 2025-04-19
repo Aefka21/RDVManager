@@ -13,4 +13,5 @@
     <string name="pckDate">Pick Date</string>
     <string name="lblTime">Time</string>
     <string name="pckTime">Pick Time</string>
+    <string name="delete">Delete</string>
 </resources>
