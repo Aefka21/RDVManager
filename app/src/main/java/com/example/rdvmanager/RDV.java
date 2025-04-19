@@ -8,13 +8,22 @@ import androidx.annotation.NonNull;
 public class RDV implements Parcelable {
 
     private int id;
-    private String title;
-    private String date;
-    private String time;
-    private String person;
-    private String phone;
+    private final String title;
+    private final String date;
+    private final String time;
+    private final String person;
+    private final String phone;
 
     public RDV(String _title, String _date, String _time, String _person, String _phone) {
+        title = _title;
+        date = _date;
+        time = _time;
+        person = _person;
+        phone = _phone;
+    }
+
+    public RDV(int _id, String _title, String _date, String _time, String _person, String _phone) {
+        id = _id;
         title = _title;
         date = _date;
         time = _time;
@@ -29,6 +38,10 @@ public class RDV implements Parcelable {
         time = in.readString();
         person = in.readString();
         phone = in.readString();
+    }
+
+    public String getId() {
+        return Integer.toString(id);
     }
 
     public String getPerson() {
@@ -73,7 +86,7 @@ public class RDV implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(date);
-        //parcel.writeString(time);
+        parcel.writeString(time);
         parcel.writeString(person);
         parcel.writeString(phone);
     }

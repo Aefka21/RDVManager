@@ -13,4 +13,5 @@
     <string name="pckDate">Choisir une date</string>
     <string name="lblTime">Heure</string>
     <string name="pckTime">Choisir une heure</string>
+    <string name="delete">Supprimer</string>
 </resources>

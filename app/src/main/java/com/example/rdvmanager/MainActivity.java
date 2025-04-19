@@ -3,6 +3,7 @@ package com.example.rdvmanager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,13 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,22 +35,43 @@ public class MainActivity extends AppCompatActivity {
 
         chargeData();
 
-        /*lvRDV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        registerForContextMenu(lvRDV);
+
+        lvRDV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                String idItem= ((TextView)view.findViewById(R.id.idRDV)).getText().toString();
-                String titleItem= ((TextView)view.findViewById(R.id.Title)).getText().toString();
-                String personItem= ((TextView)view.findViewById(R.id.Person)).getText().toString();
-                RDV pRDV = new RDV(Integer.parseInt(idItem),titleItem,personItem);
+                String idItem = ((TextView)view.findViewById(R.id.idRDV)).getText().toString();
+                String titleItem = ((TextView)view.findViewById(R.id.Title)).getText().toString();
+                String personItem = ((TextView)view.findViewById(R.id.Person)).getText().toString();
+                String phoneItem = ((TextView)view.findViewById(R.id.Phone)).getText().toString();
+                String dateItem = ((TextView)view.findViewById(R.id.Date)).getText().toString();
+                String timeItem = ((TextView)view.findViewById(R.id.Time)).getText().toString();
+                RDV pRDV = new RDV(Integer.parseInt(idItem),titleItem, dateItem, timeItem, personItem, phoneItem);
                 Intent intent = new Intent(getApplicationContext(), RDVDetails.class);
-                intent.putExtra("SelectedMoment",pRDV);
-
-
+                intent.putExtra("SelectedRDV",pRDV);
                 intent.putExtra("fromAdd",false);
                 startActivity(intent);
             }
-        });*/
+        });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu,menu);
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+        if (item.getItemId()==R.id.delete){
+            myHelper.delete(info.id);
+            chargeData();
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -83,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 DatabaseHelper.PERSON,
                 DatabaseHelper.PHONE
         };
+        
         final int[] to = new int[] {
                 R.id.idRDV,
                 R.id.Title,
@@ -91,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.Person,
                 R.id.Phone
         };
-
+        
         Cursor c = myHelper.getAllRDV();
         SimpleCursorAdapter adapter= new SimpleCursorAdapter(this,R.layout.rdv_item_view,c,from,to,0);
         adapter.notifyDataSetChanged();
